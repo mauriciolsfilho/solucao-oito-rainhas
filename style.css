@@ -3,6 +3,13 @@
   padding: 0;
 }
 
+.title {
+  margin-top: 5px;
+  margin-left: 10%;
+  margin-bottom: -50px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 .casa {
   width: 79px;
   height: 79px;
@@ -17,8 +24,8 @@
 
 #tabuleiro {
   width: 680px;
-  height: 649px;
-  padding: 10px;
+  height: 648px;
+  padding: 80px;
   background-color: gray;
   border-radius: 5px;
   display: flex;
