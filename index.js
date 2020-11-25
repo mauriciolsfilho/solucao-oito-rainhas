@@ -1,6 +1,6 @@
 import "./style.css";
 import InsertQueen from "./insertQueen.js";
-import { crownImg } from "./crown.svg";
+import { crown } from "@fortawesome/fontawesome-svg-core";
 
 const appDiv = document.getElementById("tabuleiro");
 let solution = [];
@@ -11,7 +11,7 @@ function printBoard() {
   for (let i = 0; i < 8; i++) {
     for (let j = 0; j < 8; j++) {
       let casa = document.createElement("div");
-      casa.setAttribute("id", `ì${i}j${j}`);
+      casa.setAttribute("id", `${i}${j}`);
       casa.setAttribute("class", "casa");
       appDiv.appendChild(casa);
 
@@ -32,8 +32,24 @@ function printBoard() {
           casa.style.color = "black";
         }
       }
-      casa.innerHTML = `<img src=${crownImg}/>`;
+      solution[0] = 0;
+      if (solution[j] == null && solution.filter(index => index == i)) {
+        console.log(i, j);
+
+        let test = document.getElementById(`${i}${j}`);
+        test.innerHTML = `<i class='fas fa-crown'></i>`;
+        console.log(test);
+      } else {
+      }
     }
-    InsertQueen(i + 1);
+  }
+}
+
+function InsertQueen(row, col, array, casa) {
+  if (array[row] == null) {
+    casa.innerHTML = `<i class='fas fa-crown'></i>`;
+  } else {
+    let test = document.getElementById(`#${row}${col}`);
+    test.innerHTML = `<i class='fas fa-crown'></i>`;
   }
 }
