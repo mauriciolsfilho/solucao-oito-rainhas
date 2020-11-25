@@ -1,7 +1,9 @@
 import "./style.css";
+import InsertQueen from "./insertQueen.js";
+import { crownImg } from "./crown.svg";
 
 const appDiv = document.getElementById("tabuleiro");
-let tabuleiro = [];
+let solution = [];
 
 printBoard();
 
@@ -30,8 +32,8 @@ function printBoard() {
           casa.style.color = "black";
         }
       }
-
-      casa.innerHTML = `i${i} j${j}`;
+      casa.innerHTML = `<img src=${crownImg}/>`;
     }
+    InsertQueen(i + 1);
   }
 }
