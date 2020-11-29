@@ -36,23 +36,26 @@ function printBoard() {
 }
 
 function main(result) {
+  let control = true;
   //console.log("FUNCTION MAIN RUNNING");
-  for (let row = 0; row < 8; row++) {
+  for (let row = 0; row < 8 && control; row++) {
     if (result.length == 0) {
       setFirstQueen(result);
     } else {
       for (let col = 0; col <= result.length; col++) {
-        console.log(result[col], result.length - 1, row, col);
-        if (
-          !checkRow(result, row, col) &&
-          !checkDiagonal(result[col], result.length - 1, row, col)
-        ) {
-          console.log("NAO BATEU NA MESMA LINHA NEM COLUNA");
-          //insertQueen(row, col);
-          //console.log(result[col], result.length - 1, row, col);
+        let rowQueen = result[col] == undefined ? result[col - 1] : result[col];
+        let validacao = validate(rowQueen, result.length - 1, row, col);
+        console.log(validacao);
+        if (validacao) {
+          if (rowQueen !== row && col == result.length) {
+            console.log("ASFASDFAFD", row);
+            insertQueen(row, col);
+            result[col] = row;
+          }
+          //console.log("NAO BATEU NA MESMA LINHA NEM DIAGONAL");
         }
       }
-      //console.log("tamanho vetor", result.length);
+      console.log("tamanho vetor", result.length);
       //console.log("valores de linha salvo", result);
     }
   }
@@ -65,15 +68,6 @@ function setFirstQueen(array) {
   insertQueen(random, array.length - 1);
 }
 
-function checkRow(result, row, column) {
-  if (result[column] === row) {
-    //console.log("valor verdadeiro", result[column], row);
-    return true;
-  } else {
-    return false;
-  }
-}
-
 function getRandom(max) {
   return Math.floor(Math.random() * max + 1);
 }
@@ -83,14 +77,16 @@ function insertQueen(row, column) {
   insert.innerHTML = `<i class='fas fa-crown'></i>`;
 }
 
-function checkDiagonal(lastRow, lastCol, row, col) {
+function validate(lastRow, lastCol, row, col) {
   let v1 = Math.abs(lastRow - row);
   let v2 = Math.abs(lastCol - col);
 
-  //console.log(v1, v2);
+  console.log(`lRow ${lastRow} row ${row} v1 ${v1}`);
+  console.log(`lCol ${lastCol} col ${col} v2 ${v2}`);
+
   if (v1 == v2) {
-    return true;
-  } else {
     return false;
+  } else {
+    return true;
   }
 }
