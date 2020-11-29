@@ -4,8 +4,9 @@ const appDiv = document.getElementById("tabuleiro");
 let result = [];
 
 (() => {
+  printBoard();
   for (let work = 0; work < 8; work++) {
-    main(result);
+    main(result, work);
   }
 })();
 
@@ -38,15 +39,16 @@ function printBoard() {
   }
 }
 
-function main(result) {
-  console.log("FUNCTION MAIN RUNNING");
-  printBoard();
+function main(result, work) {
+  console.log("FUNCTION MAIN RUNNING", work);
   if (result.length == 0) {
-    console.log("entrou em 0");
     setFirstQueen(result);
   } else {
-    console.log("tamanho vetor", result.length);
-    console.log("valores de linha salvo", result);
+    for (let aux = 0; aux < 8; aux++) {
+      console.log(work, aux);
+    }
+    //console.log("tamanho vetor", result.length);
+    //console.log("valores de linha salvo", result);
   }
 }
 
@@ -54,8 +56,7 @@ function setFirstQueen(array) {
   let random = getRandom(8) - 1;
   array[0] = random;
   console.log(random);
-  let insert = document.getElementById(`${random}${array.length - 1}`);
-  insert.innerHTML = `<i class='fas fa-crown'></i>`;
+  insertQueen(random, array.length - 1);
 }
 
 function checkRow(result, row, column) {
@@ -77,6 +78,11 @@ function checkColumn(result, column) {
 
 function getRandom(max) {
   return Math.floor(Math.random() * max + 1);
+}
+
+function insertQueen(row, column) {
+  let insert = document.getElementById(`${row}${column}`);
+  insert.innerHTML = `<i class='fas fa-crown'></i>`;
 }
 
 function checkDiagonal(lastRow, lastCol, row, col) {
