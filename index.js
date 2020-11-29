@@ -1,11 +1,9 @@
 import "./style.css";
-import InsertQueen from "./insertQueen.js";
-import { crown } from "@fortawesome/fontawesome-svg-core";
 
 const appDiv = document.getElementById("tabuleiro");
-let solution = [];
+let result = [];
 
-printBoard();
+core(result);
 
 function printBoard() {
   for (let i = 0; i < 8; i++) {
@@ -32,24 +30,51 @@ function printBoard() {
           casa.style.color = "black";
         }
       }
-      solution[0] = 0;
-      if (solution[j] == null && solution.filter(index => index == i)) {
-        console.log(i, j);
-
-        let test = document.getElementById(`${i}${j}`);
-        test.innerHTML = `<i class='fas fa-crown'></i>`;
-        console.log(test);
-      } else {
-      }
     }
   }
 }
 
-function InsertQueen(row, col, array, casa) {
-  if (array[row] == null) {
-    casa.innerHTML = `<i class='fas fa-crown'></i>`;
+function core(result) {
+  console.log("FUNCTION CORE RUNNING");
+  printBoard();
+
+  if (result.length == 0) {
+    console.log("entrou em 0");
+    result[0] = 0;
+    let insert = document.getElementById(
+      `${result.length - 1}${result[result.length - 1]}`
+    );
+    insert.innerHTML = `<i class='fas fa-crown'></i>`;
   } else {
-    let test = document.getElementById(`#${row}${col}`);
-    test.innerHTML = `<i class='fas fa-crown'></i>`;
+    console.log("tamanho vetor", result.length);
+    console.log("valores de linha salvo", result);
+  }
+}
+function resetArray(array) {
+  for (let aux = 0; aux < 8; aux++) {
+    result.push(null);
+    /**
+     * if (aux === 3) {
+      let test = document.getElementById(`${aux}${aux}`);
+      test.innerHTML = "<i class='fas fa-crown'></i>";
+    }
+     */
+  }
+}
+
+function checkRow(result, row, column) {
+  if (result[column].value === row) {
+    console.log("valor verdadeiro");
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function checkColumn(result, column) {
+  if (result[column] != null) {
+    return true;
+  } else {
+    return false;
   }
 }
