@@ -3,7 +3,11 @@ import "./style.css";
 const appDiv = document.getElementById("tabuleiro");
 let result = [];
 
-core(result);
+(() => {
+  for (let work = 0; work < 8; work++) {
+    main(result);
+  }
+})();
 
 function printBoard() {
   for (let i = 0; i < 8; i++) {
@@ -34,32 +38,24 @@ function printBoard() {
   }
 }
 
-function core(result) {
-  console.log("FUNCTION CORE RUNNING");
+function main(result) {
+  console.log("FUNCTION MAIN RUNNING");
   printBoard();
-
   if (result.length == 0) {
     console.log("entrou em 0");
-    result[0] = 0;
-    let insert = document.getElementById(
-      `${result.length - 1}${result[result.length - 1]}`
-    );
-    insert.innerHTML = `<i class='fas fa-crown'></i>`;
+    setFirstQueen(result);
   } else {
     console.log("tamanho vetor", result.length);
     console.log("valores de linha salvo", result);
   }
 }
-function resetArray(array) {
-  for (let aux = 0; aux < 8; aux++) {
-    result.push(null);
-    /**
-     * if (aux === 3) {
-      let test = document.getElementById(`${aux}${aux}`);
-      test.innerHTML = "<i class='fas fa-crown'></i>";
-    }
-     */
-  }
+
+function setFirstQueen(array) {
+  let random = getRandom(8) - 1;
+  array[0] = random;
+  console.log(random);
+  let insert = document.getElementById(`${random}${array.length - 1}`);
+  insert.innerHTML = `<i class='fas fa-crown'></i>`;
 }
 
 function checkRow(result, row, column) {
@@ -73,6 +69,18 @@ function checkRow(result, row, column) {
 
 function checkColumn(result, column) {
   if (result[column] != null) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function getRandom(max) {
+  return Math.floor(Math.random() * max + 1);
+}
+
+function checkDiagonal(lastRow, lastCol, row, col) {
+  if (Math.abs(lastQueen) == Math.abs(q2)) {
     return true;
   } else {
     return false;
