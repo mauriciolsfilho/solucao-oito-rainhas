@@ -3,12 +3,8 @@ import "./style.css";
 const appDiv = document.getElementById("tabuleiro");
 let result = [];
 
-(() => {
-  printBoard();
-  for (let work = 0; work < 8; work++) {
-    main(result, work);
-  }
-})();
+printBoard();
+main(result);
 
 function printBoard() {
   for (let i = 0; i < 8; i++) {
@@ -39,16 +35,26 @@ function printBoard() {
   }
 }
 
-function main(result, work) {
-  console.log("FUNCTION MAIN RUNNING", work);
-  if (result.length == 0) {
-    setFirstQueen(result);
-  } else {
-    for (let aux = 0; aux < 8; aux++) {
-      console.log(work, aux);
+function main(result) {
+  //console.log("FUNCTION MAIN RUNNING");
+  for (let row = 0; row < 8; row++) {
+    if (result.length == 0) {
+      setFirstQueen(result);
+    } else {
+      for (let col = 0; col <= result.length; col++) {
+        console.log(result[col], result.length - 1, row, col);
+        if (
+          !checkRow(result, row, col) &&
+          !checkDiagonal(result[col], result.length - 1, row, col)
+        ) {
+          console.log("NAO BATEU NA MESMA LINHA NEM COLUNA");
+          //insertQueen(row, col);
+          //console.log(result[col], result.length - 1, row, col);
+        }
+      }
+      //console.log("tamanho vetor", result.length);
+      //console.log("valores de linha salvo", result);
     }
-    //console.log("tamanho vetor", result.length);
-    //console.log("valores de linha salvo", result);
   }
 }
 
@@ -60,16 +66,8 @@ function setFirstQueen(array) {
 }
 
 function checkRow(result, row, column) {
-  if (result[column].value === row) {
-    console.log("valor verdadeiro");
-    return true;
-  } else {
-    return false;
-  }
-}
-
-function checkColumn(result, column) {
-  if (result[column] != null) {
+  if (result[column] === row) {
+    //console.log("valor verdadeiro", result[column], row);
     return true;
   } else {
     return false;
@@ -86,7 +84,11 @@ function insertQueen(row, column) {
 }
 
 function checkDiagonal(lastRow, lastCol, row, col) {
-  if (Math.abs(lastQueen) == Math.abs(q2)) {
+  let v1 = Math.abs(lastRow - row);
+  let v2 = Math.abs(lastCol - col);
+
+  //console.log(v1, v2);
+  if (v1 == v2) {
     return true;
   } else {
     return false;
