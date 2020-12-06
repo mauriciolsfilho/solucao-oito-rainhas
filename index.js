@@ -40,18 +40,16 @@ function main(result) {
     if (result.length == 0) {
       setFirstQueen(result);
     } else {
-      for (let col = 1; col == result.length; col++) {
-        //let hasError = validate(result, row, col);
-        console.log("TESTE", col, result.lenght);
-        //console.log(hasError);
-        if (hasError) {
-          if (rowQueen !== row && col == result.length) {
-            console.log("ASFASDFAFD", row);
-            insertQueen(row, col);
-            result[col] = row;
-          }
-          //console.log("NAO BATEU NA MESMA LINHA NEM DIAGONAL");
+      for (let col = 1; col <= result.length; col++) {
+        let v1 = Math.abs(row - 1 - row);
+        let v2 = Math.abs(col - 1 - col);
+
+        if (v1 == v2) {
+          console.log("VALIDACAO", v1, v2, row, col);
         }
+        //let hasError = validate(result, row, col);
+        console.log("TESTE", col, result.length);
+        //console.log(hasError);
       }
       console.log("tamanho vetor", result.length);
       //console.log("valores de linha salvo", result);
@@ -76,7 +74,6 @@ function insertQueen(row, column) {
 }
 
 function validate(result, row, col) {
-  let positionQueen = result[col] == undefined ? result[col - 1] : result[col];
   let v1 = Math.abs(lastRow - row);
   let v2 = Math.abs(lastCol - col);
 
