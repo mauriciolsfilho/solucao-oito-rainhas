@@ -36,17 +36,15 @@ function printBoard() {
 }
 
 function main(result) {
-  let control = true;
-  //console.log("FUNCTION MAIN RUNNING");
-  for (let row = 0; row < 8 && control; row++) {
+  for (let row = 0; row < 8; row++) {
     if (result.length == 0) {
       setFirstQueen(result);
     } else {
-      for (let col = 0; col <= result.length; col++) {
-        let rowQueen = result[col] == undefined ? result[col - 1] : result[col];
-        let validacao = validate(rowQueen, result.length - 1, row, col);
-        console.log(validacao);
-        if (validacao) {
+      for (let col = 1; col == result.length; col++) {
+        //let hasError = validate(result, row, col);
+        console.log("TESTE", col, result.lenght);
+        //console.log(hasError);
+        if (hasError) {
           if (rowQueen !== row && col == result.length) {
             console.log("ASFASDFAFD", row);
             insertQueen(row, col);
@@ -61,11 +59,11 @@ function main(result) {
   }
 }
 
-function setFirstQueen(array) {
+function setFirstQueen(result) {
   let random = getRandom(8) - 1;
-  array[0] = random;
+  result[0] = random;
   console.log(random);
-  insertQueen(random, array.length - 1);
+  insertQueen(random, result.length - 1);
 }
 
 function getRandom(max) {
@@ -77,7 +75,8 @@ function insertQueen(row, column) {
   insert.innerHTML = `<i class='fas fa-crown'></i>`;
 }
 
-function validate(lastRow, lastCol, row, col) {
+function validate(result, row, col) {
+  let positionQueen = result[col] == undefined ? result[col - 1] : result[col];
   let v1 = Math.abs(lastRow - row);
   let v2 = Math.abs(lastCol - col);
 
